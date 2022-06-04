@@ -20,25 +20,16 @@ function getUserInfo() {
         method: 'GET',
         url: 'my/userinfo',
         success: function (res) {
-            console.log(res)
+            // console.log(res)
             if (res.code !== 0) {
                 return layui.layer.msg('获取用户信息失败！')
             }
             renderAvatar(res.data);
         }
-        // 无论成功还是失败，ajax都会调用 complete 回调函数
-        // complete: function (res) {
-        //     if (res.responseJSON.code === 1 && res.responseJSON.message === '身份认证失败！') {
-        //         // 强制清空本地token数据
-        //         localStorage.removeItem('token');
-        //         // 强制跳转页面
-        //         location.href = 'login.html';
-        //     }
-        // }
     })
 }
 
-// 头像函数
+// 渲染用户头像函数
 function renderAvatar(user) {
     // 获取用户名称
     var name = user.nickname || user.username;
