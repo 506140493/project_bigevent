@@ -164,9 +164,9 @@ $(function () {
         return year + '-' + month + '-' + dates + ' ' + hour + ':' + minute + ':' + second;
     }
     // 再定义一个 过滤器
-    template.defaults.imports.textFormat = function (data) {
-        return $(data).html();
-    }
+    // template.defaults.imports.textFormat = function (data) {
+    //     return $(data).html();
+    // }
 
 
 
