@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/assets/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/assets/css/art_list.css">
+    <script src="/assets/lib/jquery.js"></script>
+    <script src="/assets/lib/layui/layui.all.js"></script>
+    <script src="/assets/lib/template-web.js"></script>
+    <script src="/assets/js/baseAPI.js"></script>
+    <script src="/assets/js/art_list.js"></script>
+</head>
+
+<body>
+    <div class="layui-card">
+        <div class="layui-card-header">文章列表</div>
+        <div class="layui-card-body">
+            <!-- 筛选区域 -->
+            <form class="layui-form" id="form-search">
+                <div class="layui-form-item layui-inline">
+                    <select name="cate_id" lay-filter="cate_list">
+                    </select>
+                </div>
+                <div class="layui-form-item layui-inline">
+                    <select name="state">
+                        <option value="">所有状态</option>
+                        <option value="已发布">已发布</option>
+                        <option value="草稿">草稿</option>
+                    </select>
+                </div>
+                <div class="layui-form-item layui-inline">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">筛选</button>
+                </div>
+            </form>
+            <!-- 列表区域 -->
+            <table class="layui-table">
+                <colgroup>
+                    <col>
+                    <col width="150">
+                    <col width="200">
+                    <col width="150">
+                    <col width="150">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>文章标题</th>
+                        <th>分类</th>
+                        <th>发表时间</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <!-- 分页区域 -->
+            <div id="pageBox"></div>
+        </div>
+    </div>
+    <!-- 列表区域的模版引擎 -->
+    <script type="text/html" id="tpl-table">
+        {{each data}}
+        <tr>
+            <td>{{$value.title}}</td>
+            <td>{{$value.cate_name}}</td>
+            <td>{{$value.pub_date | dataFormat}}</td>
+            <td>{{$value.state}}</td>
+            <td>
+                <button type="button" class="layui-btn layui-btn-normal layui-btn-xs" id="btn-preview">预览</button>
+                <button type="button" class="layui-btn layui-btn-danger layui-btn-xs btn-del" id="btn-del" index-id="{{$value.id}}">删除</button>
+            </td>
+        </tr>
+        {{/each}}
+    </script>
+    <!-- 下拉类别 所有分类的模版引擎 -->
+    <script type="text/html" id="tpl-cate">
+        <option value="">所有分类</option>
+        {{each data}}
+        <option value="{{$value.id}}">{{$value.cate_name}}</option>
+        {{/each}}
+    </script>
+    <!-- 预览弹出界面 -->
+    <script type="text/html" id="dialog-preview">
+        <div id="data-big">
+        <h1 style="text-align: center;">{{title}}</h1>
+        <div>
+            <span>作者:{{nickname}}</span><br>
+            <span>发布时间:{{pub_date | DateFormat}}</span><br>
+            <span>所属分类:{{cate_name}}</span><br>
+            <span>文章状态:{{state}}</span><br>
+        </div>
+        <hr class="layui-border-black">
+        <img src="http://www.liulongbin.top:3008{{cover_img}}"><br>
+        <span>内容:{{content | textFormat}}</span>
+    </div>
+    </script>
+</body>
+
+</html>
